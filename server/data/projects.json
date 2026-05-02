@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "Project Alpha",
+    "description": "A full-stack web application that solves real-world problems with a clean UI and blazing-fast backend. Built with modern tooling and scalability in mind.",
+    "tech_stack": "React,Node.js,Express",
+    "github_url": "#",
+    "live_url": "#",
+    "emoji": "🚀",
+    "featured": true
+  },
+  {
+    "id": 2,
+    "title": "Project Beta",
+    "description": "A visually rich design tool with real-time collaboration and a customizable canvas.",
+    "tech_stack": "Next.js,TypeScript,Figma API",
+    "github_url": "#",
+    "live_url": "#",
+    "emoji": "🎨",
+    "featured": false
+  },
+  {
+    "id": 3,
+    "title": "Project Gamma",
+    "description": "An AI-powered assistant that uses NLP to respond to queries with context-aware, personalised replies.",
+    "tech_stack": "Python,FastAPI,OpenAI",
+    "github_url": "#",
+    "live_url": "#",
+    "emoji": "🤖",
+    "featured": false
+  }
+]
