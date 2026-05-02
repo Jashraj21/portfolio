@@ -92,6 +92,12 @@ input, textarea { font-family: inherit; outline: none; }
   background: rgba(124,58,237,0.08);
   transform: translateY(-2px);
 }
+.btn-saved {
+  background: linear-gradient(135deg, #059669, #10b981);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(16,185,129,0.4);
+  transform: translateY(-1px);
+}
 .btn-icon {
   display: inline-flex;
   align-items: center;
@@ -285,6 +291,11 @@ input, textarea { font-family: inherit; outline: none; }
   color: var(--accent);
   background: rgba(124,58,237,0.1);
   transform: translateY(-3px);
+}
+.social-inactive {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
 }
 .scroll-hint {
   position: absolute;
