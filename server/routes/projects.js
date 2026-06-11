@@ -1,66 +1,77 @@
 const express = require('express');
 const router = express.Router();
-const path = require('path');
-const fs = require('fs');
-
-const DATA_FILE = path.join(__dirname, '../data/projects.json');
-
-const readProjects = () => JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8'));
-const writeProjects = (data) => fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+const pool = require('../db/pool');
 
 // GET all projects
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    res.json({ success: true, projects: readProjects() });
+    const result = await pool.query('SELECT * FROM projects ORDER BY featured DESC, created_at DESC');
+    res.json({ success: true, projects: result.rows });
   } catch (err) {
+    console.error('GET /projects error:', err);
     res.status(500).json({ success: false, message: 'Failed to load projects.' });
   }
 });
 
 // POST — add new project
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
+  const { title, description, tech_stack, github_url, live_url, emoji, featured } = req.body;
   try {
-    const projects = readProjects();
-    const newProject = {
-      id: Date.now(),
-      title: req.body.title || 'New Project',
-      description: req.body.description || '',
-      tech_stack: req.body.tech_stack || '',
-      github_url: req.body.github_url || '#',
-      live_url: req.body.live_url || '#',
-      emoji: req.body.emoji || '🚀',
-      featured: req.body.featured || false,
-    };
-    projects.push(newProject);
-    writeProjects(projects);
-    res.json({ success: true, project: newProject });
+    const result = await pool.query(
+      `INSERT INTO projects (title, description, tech_stack, github_url, live_url, emoji, featured)
+       VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+      [
+        title || 'New Project',
+        description || '',
+        tech_stack || '',
+        github_url || '#',
+        live_url || '#',
+        emoji || '🚀',
+        featured || false,
+      ]
+    );
+    res.json({ success: true, project: result.rows[0] });
   } catch (err) {
+    console.error('POST /projects error:', err);
     res.status(500).json({ success: false, message: 'Failed to add project.' });
   }
 });
 
 // PUT — update a project
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  const { title, description, tech_stack, github_url, live_url, emoji, featured } = req.body;
   try {
-    const projects = readProjects();
-    const idx = projects.findIndex((p) => String(p.id) === String(req.params.id));
-    if (idx === -1) return res.status(404).json({ success: false, message: 'Project not found.' });
-    projects[idx] = { ...projects[idx], ...req.body };
-    writeProjects(projects);
-    res.json({ success: true, project: projects[idx] });
+    const result = await pool.query(
+      `UPDATE projects SET
+        title       = COALESCE($1, title),
+        description = COALESCE($2, description),
+        tech_stack  = COALESCE($3, tech_stack),
+        github_url  = COALESCE($4, github_url),
+        live_url    = COALESCE($5, live_url),
+        emoji       = COALESCE($6, emoji),
+        featured    = COALESCE($7, featured)
+       WHERE id = $8 RETURNING *`,
+      [title, description, tech_stack, github_url, live_url, emoji, featured, id]
+    );
+    if (result.rows.length === 0) {
+      return res.status(404).json({ success: false, message: 'Project not found.' });
+    }
+    res.json({ success: true, project: result.rows[0] });
   } catch (err) {
+    console.error('PUT /projects/:id error:', err);
     res.status(500).json({ success: false, message: 'Failed to update project.' });
   }
 });
 
 // DELETE — remove a project
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
   try {
-    const projects = readProjects();
-    const filtered = projects.filter((p) => String(p.id) !== String(req.params.id));
-    writeProjects(filtered);
+    await pool.query('DELETE FROM projects WHERE id = $1', [id]);
     res.json({ success: true });
   } catch (err) {
+    console.error('DELETE /projects/:id error:', err);
     res.status(500).json({ success: false, message: 'Failed to delete project.' });
   }
 });

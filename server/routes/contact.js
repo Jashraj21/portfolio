@@ -1,14 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const path = require('path');
-const fs = require('fs');
 const nodemailer = require('nodemailer');
+const pool = require('../db/pool');
 require('dotenv').config();
-
-const DATA_FILE = path.join(__dirname, '../data/contacts.json');
-
-const readContacts = () => JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8'));
-const writeContacts = (data) => fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
 
 // Nodemailer transporter
 const transporter = nodemailer.createTransport({
@@ -26,17 +20,11 @@ router.post('/', async (req, res) => {
     return res.status(400).json({ success: false, message: 'Name, email and message are required.' });
   }
   try {
-    const contacts = readContacts();
-    const newEntry = {
-      id: Date.now(),
-      name, email,
-      subject: subject || '',
-      message,
-      read: false,
-      created_at: new Date().toISOString(),
-    };
-    contacts.push(newEntry);
-    writeContacts(contacts);
+    await pool.query(
+      `INSERT INTO contacts (name, email, subject, message)
+       VALUES ($1, $2, $3, $4)`,
+      [name, email, subject || '', message]
+    );
 
     // Send email if configured
     if (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
@@ -71,36 +59,42 @@ router.post('/', async (req, res) => {
 });
 
 // GET — view all submissions
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    res.json({ success: true, contacts: readContacts() });
+    const result = await pool.query('SELECT * FROM contacts ORDER BY created_at DESC');
+    res.json({ success: true, contacts: result.rows });
   } catch (err) {
+    console.error('GET /contact error:', err);
     res.status(500).json({ success: false, message: 'Failed to load contacts.' });
   }
 });
 
 // PATCH — mark as read
-router.patch('/:id/read', (req, res) => {
+router.patch('/:id/read', async (req, res) => {
+  const { id } = req.params;
   try {
-    const contacts = readContacts();
-    const idx = contacts.findIndex((c) => String(c.id) === String(req.params.id));
-    if (idx === -1) return res.status(404).json({ success: false });
-    contacts[idx].read = true;
-    writeContacts(contacts);
+    const result = await pool.query(
+      'UPDATE contacts SET read = TRUE WHERE id = $1 RETURNING *',
+      [id]
+    );
+    if (result.rows.length === 0) {
+      return res.status(404).json({ success: false, message: 'Contact not found.' });
+    }
     res.json({ success: true });
   } catch (err) {
+    console.error('PATCH /contact/:id/read error:', err);
     res.status(500).json({ success: false });
   }
 });
 
 // DELETE — remove a message
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
   try {
-    const contacts = readContacts();
-    const filtered = contacts.filter((c) => String(c.id) !== String(req.params.id));
-    writeContacts(filtered);
+    await pool.query('DELETE FROM contacts WHERE id = $1', [id]);
     res.json({ success: true });
   } catch (err) {
+    console.error('DELETE /contact/:id error:', err);
     res.status(500).json({ success: false });
   }
 });
