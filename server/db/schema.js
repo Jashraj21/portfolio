@@ -16,6 +16,7 @@ const createTables = async () => {
         live_url    TEXT DEFAULT '#',
         emoji       VARCHAR(10) DEFAULT '🚀',
         featured    BOOLEAN DEFAULT FALSE,
+        image_url   TEXT,
         created_at  TIMESTAMP WITH TIME ZONE DEFAULT NOW()
       );
     `);

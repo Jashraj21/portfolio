@@ -4,7 +4,7 @@ import './Admin.css';
 
 const API = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
-const emptyProject = { title: '', description: '', tech_stack: '', github_url: '', live_url: '', emoji: '🚀', featured: false };
+const emptyProject = { title: '', description: '', tech_stack: '', github_url: '', live_url: '', emoji: '🚀', featured: false, image_url: '' };
 const defaultSettings = { github: '', linkedin: '', twitter: '', instagram: '', facebook: '', email: '', phone: '', location: '' };
 
 // Language → emoji mapping
@@ -131,6 +131,7 @@ export default function Admin() {
           live_url: repo.homepage || '',
           emoji: LANG_EMOJI[repo.language] || '🚀',
           featured: false,
+          image_url: '',
         },
       };
     });
@@ -294,6 +295,10 @@ export default function Admin() {
                     <div className="form-group">
                       <label>Live URL</label>
                       <input value={projectForm.live_url} onChange={(e) => setProjectForm({ ...projectForm, live_url: e.target.value })} placeholder="https://..." />
+                    </div>
+                    <div className="form-group">
+                      <label>Image URL / Path</label>
+                      <input value={projectForm.image_url || ''} onChange={(e) => setProjectForm({ ...projectForm, image_url: e.target.value })} placeholder="/assets/screenshot.png" />
                     </div>
                     <div className="form-group full">
                       <label className="checkbox-label">

@@ -15,11 +15,11 @@ router.get('/', async (req, res) => {
 
 // POST — add new project
 router.post('/', async (req, res) => {
-  const { title, description, tech_stack, github_url, live_url, emoji, featured } = req.body;
+  const { title, description, tech_stack, github_url, live_url, emoji, featured, image_url } = req.body;
   try {
     const result = await pool.query(
-      `INSERT INTO projects (title, description, tech_stack, github_url, live_url, emoji, featured)
-       VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+      `INSERT INTO projects (title, description, tech_stack, github_url, live_url, emoji, featured, image_url)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
       [
         title || 'New Project',
         description || '',
@@ -28,6 +28,7 @@ router.post('/', async (req, res) => {
         live_url || '#',
         emoji || '🚀',
         featured || false,
+        image_url || null,
       ]
     );
     res.json({ success: true, project: result.rows[0] });
@@ -40,7 +41,7 @@ router.post('/', async (req, res) => {
 // PUT — update a project
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
-  const { title, description, tech_stack, github_url, live_url, emoji, featured } = req.body;
+  const { title, description, tech_stack, github_url, live_url, emoji, featured, image_url } = req.body;
   try {
     const result = await pool.query(
       `UPDATE projects SET
@@ -50,9 +51,10 @@ router.put('/:id', async (req, res) => {
         github_url  = COALESCE($4, github_url),
         live_url    = COALESCE($5, live_url),
         emoji       = COALESCE($6, emoji),
-        featured    = COALESCE($7, featured)
-       WHERE id = $8 RETURNING *`,
-      [title, description, tech_stack, github_url, live_url, emoji, featured, id]
+        featured    = COALESCE($7, featured),
+        image_url   = COALESCE($8, image_url)
+       WHERE id = $9 RETURNING *`,
+      [title, description, tech_stack, github_url, live_url, emoji, featured, image_url, id]
     );
     if (result.rows.length === 0) {
       return res.status(404).json({ success: false, message: 'Project not found.' });

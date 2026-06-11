@@ -63,9 +63,13 @@ export default function Projects() {
             {featured && (
               <article className="project-card featured reveal" id="project-featured">
                 <div className="project-img">
-                  <div className="project-placeholder p1">
-                    <span>{featured.emoji || '🚀'}</span>
-                  </div>
+                  {featured.image_url ? (
+                    <img src={featured.image_url} alt={featured.title} className="project-photo" />
+                  ) : (
+                    <div className="project-placeholder p1">
+                      <span>{featured.emoji || '🚀'}</span>
+                    </div>
+                  )}
                 </div>
                 <div className="project-info">
                   <span className="project-tag">Featured Project</span>
@@ -88,9 +92,13 @@ export default function Projects() {
             {rest.map((p, i) => (
               <article className="project-card reveal" key={p.id} id={`project-${p.id}`}>
                 <div className="project-img">
-                  <div className={`project-placeholder ${COLORS[i % COLORS.length]}`}>
-                    <span>{p.emoji || '💡'}</span>
-                  </div>
+                  {p.image_url ? (
+                    <img src={p.image_url} alt={p.title} className="project-photo" />
+                  ) : (
+                    <div className={`project-placeholder ${COLORS[i % COLORS.length]}`}>
+                      <span>{p.emoji || '💡'}</span>
+                    </div>
+                  )}
                 </div>
                 <div className="project-info">
                   <span className="project-tag">{p.tag || 'Project'}</span>
