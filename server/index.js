@@ -14,6 +14,9 @@ app.use(cors({
   origin: [
     'http://localhost:5173',
     /\.vercel\.app$/,
+    'https://jashraaj.xyz',
+    'https://www.jashraaj.xyz',
+    /\.jashraaj\.xyz$/,
   ],
 }));
 app.use(express.json());
