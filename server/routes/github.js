@@ -6,9 +6,13 @@ const pool = require('../db/pool');
 // Fetch repos from GitHub API
 function fetchGitHubRepos(username) {
   return new Promise((resolve, reject) => {
+    const path = process.env.GITHUB_TOKEN
+      ? '/user/repos?sort=updated&per_page=100'
+      : `/users/${username}/repos?sort=updated&per_page=100`;
+
     const options = {
       hostname: 'api.github.com',
-      path: `/users/${username}/repos?sort=updated&per_page=100`,
+      path,
       headers: {
         'User-Agent': 'portfolio-server',
         'Accept': 'application/vnd.github.v3+json',
