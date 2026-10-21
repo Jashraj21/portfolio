@@ -43,22 +43,17 @@ export default function Navbar({ onOpenTerminal }) {
     setClickCount(next);
     clearTimeout(clickTimer.current);
 
-    if (next >= 5) {
+    if (next >= 3) {
       setClickHint('CONSOLE UNLOCKED!');
       setClickCount(0);
-      onOpenTerminal?.();
-      setTimeout(() => setClickHint(''), 2500);
-    } else if (next >= 2) {
-      setClickHint(`${5 - next} more click${5 - next > 1 ? 's' : ''}...`);
-      clickTimer.current = setTimeout(() => {
-        setClickCount(0);
-        setClickHint('');
-      }, 1600);
+      onOpenTerminal?.('terminal');
+      setTimeout(() => setClickHint(''), 3000);
     } else {
+      setClickHint(`${3 - next} more click${3 - next > 1 ? 's' : ''} to unlock!`);
       clickTimer.current = setTimeout(() => {
         setClickCount(0);
         setClickHint('');
-      }, 1600);
+      }, 3000);
     }
   };
 
@@ -66,9 +61,9 @@ export default function Navbar({ onOpenTerminal }) {
     <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="logo-container">
         <div
-          className={`logo clickable-logo ${clickCount > 1 ? 'pulsing' : ''}`}
+          className={`logo clickable-logo ${clickCount > 0 ? 'pulsing' : ''}`}
           onClick={handleLogoClick}
-          title="Click 5 times to reveal hidden console"
+          title="Click 3 times to reveal hidden console"
           role="button"
           tabIndex={0}
         >
@@ -96,11 +91,12 @@ export default function Navbar({ onOpenTerminal }) {
       <div className="nav-right-actions">
         <button
           className="nav-terminal-btn"
-          onClick={onOpenTerminal}
+          onClick={() => onOpenTerminal?.('terminal')}
           title="Open Hidden Terminal (Ctrl+K or ~)"
           aria-label="Open Terminal"
         >
           <span className="terminal-symbol">&gt;_</span>
+          <span className="nav-terminal-text">Terminal</span>
         </button>
         <button
           className="hamburger"

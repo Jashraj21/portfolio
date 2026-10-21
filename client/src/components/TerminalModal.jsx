@@ -107,11 +107,12 @@ const QUOTES = [
 ];
 
 export default function TerminalModal({ isOpen, onClose, initialMode = 'terminal' }) {
+  const sanitizeMode = (m) => (['terminal', 'matrix', 'snake', 'art'].includes(m) ? m : 'terminal');
   const [history, setHistory] = useState(INITIAL_WELCOME);
   const [inputVal, setInputVal] = useState('');
   const [commandHistory, setCommandHistory] = useState([]);
   const [historyPointer, setHistoryPointer] = useState(-1);
-  const [activeMode, setActiveMode] = useState(initialMode); // 'terminal' | 'matrix' | 'snake' | 'art'
+  const [activeMode, setActiveMode] = useState(() => sanitizeMode(initialMode));
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [scanlines, setScanlines] = useState(true);
   const [soundEnabled, setSoundEnabled] = useState(false);
@@ -121,8 +122,8 @@ export default function TerminalModal({ isOpen, onClose, initialMode = 'terminal
   // Sync mode when modal opens without cascading effect
   if (isOpen !== prevIsOpen) {
     setPrevIsOpen(isOpen);
-    if (isOpen && initialMode) {
-      setActiveMode(initialMode);
+    if (isOpen) {
+      setActiveMode(sanitizeMode(initialMode));
     }
   }
 
@@ -731,7 +732,7 @@ export default function TerminalModal({ isOpen, onClose, initialMode = 'terminal
             <SnakeGame onClose={() => setActiveMode('terminal')} />
           )}
 
-          {activeMode === 'terminal' && (
+          {activeMode !== 'art' && activeMode !== 'matrix' && activeMode !== 'snake' && (
             <div className="terminal-output-stream">
               {history.map((item, idx) => (
                 <div key={idx} className={`terminal-line line-${item.type}`}>

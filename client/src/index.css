@@ -230,6 +230,56 @@ input, textarea { font-family: inherit; outline: none; }
 .terminal-symbol {
   color: var(--accent-2);
 }
+.nav-terminal-text {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-left: 5px;
+}
+
+/* ─── Floating Quick Terminal Trigger ─── */
+.floating-terminal-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  background: rgba(12, 17, 30, 0.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(124, 58, 237, 0.45);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5), 0 0 20px rgba(124, 58, 237, 0.25);
+  color: #f1f5f9;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.6rem 1.15rem;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: fabFloat 3s infinite ease-in-out;
+}
+.floating-terminal-fab:hover {
+  transform: translateY(-4px) scale(1.05);
+  border-color: #00f0ff;
+  color: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 240, 255, 0.4);
+  background: rgba(15, 23, 42, 0.98);
+}
+.floating-terminal-fab .fab-icon {
+  color: #00f0ff;
+  font-size: 0.95rem;
+}
+.floating-terminal-fab .fab-text {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+@keyframes fabFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
 .nav-link {
   font-size: 0.9rem;
   font-weight: 500;

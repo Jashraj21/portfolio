@@ -16,8 +16,10 @@ function App() {
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [terminalMode, setTerminalMode] = useState('terminal');
 
-  const handleOpenTerminal = (mode = 'terminal') => {
-    setTerminalMode(mode);
+  const handleOpenTerminal = (mode) => {
+    const validModes = ['terminal', 'art', 'matrix', 'snake'];
+    const cleanMode = typeof mode === 'string' && validModes.includes(mode) ? mode : 'terminal';
+    setTerminalMode(cleanMode);
     setTerminalOpen(true);
   };
 
@@ -63,14 +65,20 @@ function App() {
         konamiIndex = 0;
       }
 
-      // 4. Typing the words "secret" or "art" or "pastel" anywhere on page
+      // 4. Typing words like "secret", "terminal", "art", "pastel", "snake" anywhere
       if (!isInputFocused && e.key.length === 1) {
-        keyBuffer = (keyBuffer + e.key.toLowerCase()).slice(-8);
-        if (keyBuffer.includes('secret')) {
+        keyBuffer = (keyBuffer + e.key.toLowerCase()).slice(-10);
+        if (keyBuffer.includes('secret') || keyBuffer.includes('terminal')) {
           handleOpenTerminal('terminal');
           keyBuffer = '';
         } else if (keyBuffer.includes('pastel') || keyBuffer.endsWith('art')) {
           handleOpenTerminal('art');
+          keyBuffer = '';
+        } else if (keyBuffer.includes('snake') || keyBuffer.includes('game')) {
+          handleOpenTerminal('snake');
+          keyBuffer = '';
+        } else if (keyBuffer.includes('matrix')) {
+          handleOpenTerminal('matrix');
           keyBuffer = '';
         }
       }
@@ -90,7 +98,7 @@ function App() {
         <Route path="/*" element={
           <>
             <CursorGlow />
-            <Navbar onOpenTerminal={(mode) => handleOpenTerminal(mode || 'terminal')} />
+            <Navbar onOpenTerminal={(mode) => handleOpenTerminal(mode)} />
             <main>
               <Hero />
               <About />
@@ -98,7 +106,19 @@ function App() {
               <Projects />
               <Contact />
             </main>
-            <Footer onOpenTerminal={(mode) => handleOpenTerminal(mode || 'terminal')} />
+            <Footer onOpenTerminal={(mode) => handleOpenTerminal(mode)} />
+
+            {/* Quick Floating Terminal Trigger for 1-Click Access anywhere */}
+            <button
+              className="floating-terminal-fab"
+              onClick={() => handleOpenTerminal('terminal')}
+              title="Open Cyber Console (Ctrl+K or ~)"
+              aria-label="Open Terminal"
+            >
+              <span className="fab-icon">&gt;_</span>
+              <span className="fab-text">Terminal</span>
+            </button>
+
             <TerminalModal
               isOpen={terminalOpen}
               onClose={() => setTerminalOpen(false)}
