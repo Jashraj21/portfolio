@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
-export default function Navbar() {
+export default function Navbar({ onOpenTerminal }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState('home');
+  const [clickCount, setClickCount] = useState(0);
+  const [clickHint, setClickHint] = useState('');
+  const clickTimer = useRef(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -35,11 +38,47 @@ export default function Navbar() {
     setMenuOpen(false);
   };
 
+  const handleLogoClick = () => {
+    const next = clickCount + 1;
+    setClickCount(next);
+    clearTimeout(clickTimer.current);
+
+    if (next >= 5) {
+      setClickHint('CONSOLE UNLOCKED!');
+      setClickCount(0);
+      onOpenTerminal?.();
+      setTimeout(() => setClickHint(''), 2500);
+    } else if (next >= 2) {
+      setClickHint(`${5 - next} more click${5 - next > 1 ? 's' : ''}...`);
+      clickTimer.current = setTimeout(() => {
+        setClickCount(0);
+        setClickHint('');
+      }, 1600);
+    } else {
+      clickTimer.current = setTimeout(() => {
+        setClickCount(0);
+        setClickHint('');
+      }, 1600);
+    }
+  };
+
   return (
     <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-      <div className="logo">
-        <span className="logo-bracket">&lt;</span>JN<span className="logo-bracket">/&gt;</span>
+      <div className="logo-container">
+        <div
+          className={`logo clickable-logo ${clickCount > 1 ? 'pulsing' : ''}`}
+          onClick={handleLogoClick}
+          title="Click 5 times to reveal hidden console"
+          role="button"
+          tabIndex={0}
+        >
+          <span className="logo-bracket">&lt;</span>JN<span className="logo-bracket">/&gt;</span>
+        </div>
+        {clickHint && (
+          <span className="logo-click-hint">{clickHint}</span>
+        )}
       </div>
+
       <nav className={`nav-links ${menuOpen ? 'open' : ''}`}>
         {links.map((l) => (
           <button
@@ -53,14 +92,25 @@ export default function Navbar() {
           </button>
         ))}
       </nav>
-      <button
-        className="hamburger"
-        id="hamburger"
-        aria-label="Toggle menu"
-        onClick={() => setMenuOpen((o) => !o)}
-      >
-        <span /><span /><span />
-      </button>
+
+      <div className="nav-right-actions">
+        <button
+          className="nav-terminal-btn"
+          onClick={onOpenTerminal}
+          title="Open Hidden Terminal (Ctrl+K or ~)"
+          aria-label="Open Terminal"
+        >
+          <span className="terminal-symbol">&gt;_</span>
+        </button>
+        <button
+          className="hamburger"
+          id="hamburger"
+          aria-label="Toggle menu"
+          onClick={() => setMenuOpen((o) => !o)}
+        >
+          <span /><span /><span />
+        </button>
+      </div>
     </header>
   );
 }

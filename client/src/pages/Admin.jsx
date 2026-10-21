@@ -40,13 +40,14 @@ export default function Admin() {
   const [ghDone, setGhDone] = useState('');
   const [ghUsername, setGhUsername] = useState('Jashraj21');
 
-  useEffect(() => { fetchMessages(); fetchProjects(); fetchSettings(); }, []);
-
   const fetchMessages = () =>
     axios.get(`${API}/contact`).then((r) => setMessages(r.data.contacts || []));
 
   const fetchSettings = () =>
     axios.get(`${API}/settings`).then((r) => { if (r.data.settings) setSettings(r.data.settings); });
+
+  const fetchProjects = () =>
+    axios.get(`${API}/projects`).then((r) => setProjects(r.data.projects || []));
 
   const saveSettings = async () => {
     await axios.put(`${API}/settings`, settings);
@@ -54,8 +55,11 @@ export default function Admin() {
     setTimeout(() => setSettingsSaved(false), 3000);
   };
 
-  const fetchProjects = () =>
-    axios.get(`${API}/projects`).then((r) => setProjects(r.data.projects || []));
+  useEffect(() => {
+    fetchMessages();
+    fetchProjects();
+    fetchSettings();
+  }, []);
 
   const deleteMessage = async (id) => {
     await axios.delete(`${API}/contact/${id}`);

@@ -10,11 +10,12 @@ const ROLES = [
 const API = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 export default function Hero() {
-  const [displayed, setDisplayed] = useState('');
   const [roleIndex, setRoleIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [deleting, setDeleting] = useState(false);
   const [socials, setSocials] = useState({ github: '', linkedin: '', twitter: '', instagram: '', facebook: '', email: '' });
+
+  const displayed = ROLES[roleIndex].substring(0, charIndex);
 
   // Fetch social links
   useEffect(() => {
@@ -35,10 +36,11 @@ export default function Hero() {
     } else if (deleting && charIndex > 0) {
       timeout = setTimeout(() => setCharIndex((c) => c - 1), 40);
     } else if (deleting && charIndex === 0) {
-      setDeleting(false);
-      setRoleIndex((r) => (r + 1) % ROLES.length);
+      timeout = setTimeout(() => {
+        setDeleting(false);
+        setRoleIndex((r) => (r + 1) % ROLES.length);
+      }, 300);
     }
-    setDisplayed(current.substring(0, charIndex));
     return () => clearTimeout(timeout);
   }, [charIndex, deleting, roleIndex]);
 
