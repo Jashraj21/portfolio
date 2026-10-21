@@ -2,35 +2,58 @@ import { useEffect, useRef } from 'react';
 
 const categories = [
   {
-    title: 'Frontend',
+    title: 'Frontend & UI',
+    icon: '⚡',
     skills: [
-      { name: 'HTML & CSS', level: 95 },
-      { name: 'JavaScript', level: 88 },
-      { name: 'React', level: 80 },
-      { name: 'TypeScript', level: 72 },
+      { name: 'HTML5 & CSS3', level: 95 },
+      { name: 'JavaScript (ES6+)', level: 90 },
+      { name: 'React & Next.js', level: 88 },
+      { name: 'TypeScript', level: 82 },
+      { name: 'Tailwind CSS', level: 85 },
     ],
   },
   {
-    title: 'Backend',
+    title: 'Backend & Systems',
+    icon: '⚙️',
     skills: [
-      { name: 'Node.js', level: 78 },
-      { name: 'Python', level: 82 },
-      { name: 'Express', level: 75 },
-      { name: 'MySQL / NoSQL', level: 70 },
+      { name: 'Node.js & Express', level: 85 },
+      { name: 'Python & FastAPI', level: 82 },
+      { name: 'C++ & Data Structures', level: 80 },
+      { name: 'REST APIs & WebSockets', level: 86 },
+      { name: 'TinaCMS & Markdown', level: 78 },
     ],
   },
   {
-    title: 'Tools & Design',
+    title: 'Databases & Cloud',
+    icon: '🗄️',
     skills: [
-      { name: 'Git & GitHub', level: 90 },
-      { name: 'Figma', level: 76 },
-      { name: 'Docker', level: 60 },
-      { name: 'Linux / CLI', level: 83 },
+      { name: 'PostgreSQL & MySQL', level: 84 },
+      { name: 'NoSQL & MongoDB', level: 74 },
+      { name: 'Git & GitHub Workflow', level: 92 },
+      { name: 'Linux / CLI & Bash', level: 86 },
+      { name: 'Docker & Vercel Deploy', level: 75 },
+    ],
+  },
+  {
+    title: 'Design & Scientific Tools',
+    icon: '🎨',
+    skills: [
+      { name: 'Figma & UI/UX Prototyping', level: 85 },
+      { name: 'Adobe Illustrator & Canva', level: 82 },
+      { name: 'Procreate Digital Art', level: 80 },
+      { name: 'SciLab & Numerical Computing', level: 76 },
+      { name: 'Excel & Data Analysis', level: 84 },
     ],
   },
 ];
 
-const pills = ['React', 'Node.js', 'MySQL', 'JavaScript', 'TypeScript', 'Python', 'Express', 'Git', 'Figma', 'Docker', 'REST APIs', 'Linux'];
+const pills = [
+  'React', 'Next.js', 'JavaScript', 'TypeScript', 'Node.js', 'Express',
+  'Python', 'C++', 'FastAPI', 'PostgreSQL', 'MySQL', 'MongoDB',
+  'Tailwind CSS', 'HTML5 & CSS3', 'Git', 'GitHub', 'Docker', 'Linux / CLI',
+  'Figma', 'Adobe Illustrator', 'Procreate', 'SciLab', 'TinaCMS',
+  'Vercel', 'REST APIs', 'WebSockets', 'Canva', 'Computer Vision'
+];
 
 export default function Skills() {
   const sectionRef = useRef(null);
@@ -65,11 +88,16 @@ export default function Skills() {
         <div className="skills-grid">
           {categories.map((cat) => (
             <div className="skill-category reveal" key={cat.title}>
-              <h3 className="skill-cat-title">{cat.title}</h3>
+              <h3 className="skill-cat-title">
+                <span className="cat-icon">{cat.icon}</span> {cat.title}
+              </h3>
               <div className="skill-bars">
                 {cat.skills.map((s) => (
                   <div className="skill-bar-item" key={s.name}>
-                    <span>{s.name}</span>
+                    <div className="skill-bar-header">
+                      <span>{s.name}</span>
+                      <span className="skill-pct">{s.level}%</span>
+                    </div>
                     <div className="bar">
                       <div className="bar-fill" data-width={s.level} />
                     </div>

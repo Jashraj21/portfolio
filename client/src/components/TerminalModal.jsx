@@ -262,27 +262,35 @@ export default function TerminalModal({ isOpen, onClose, initialMode = 'terminal
                 <p className="matrix-title">CORE PROFICIENCY MATRIX:</p>
                 <div className="skills-meter-group">
                   <div className="meter-row">
-                    <span className="meter-label">Frontend (React / Next / CSS)</span>
-                    <span className="meter-bar">[█████████░] 92%</span>
+                    <span className="meter-label">Frontend (React / Next.js / Tailwind)</span>
+                    <span className="meter-bar">[█████████░] 90%</span>
                   </div>
                   <div className="meter-row">
-                    <span className="meter-label">TypeScript / JavaScript</span>
+                    <span className="meter-label">TypeScript & JavaScript (ES6+)</span>
                     <span className="meter-bar">[█████████░] 90%</span>
                   </div>
                   <div className="meter-row">
                     <span className="meter-label">Backend (Node.js / Express / APIs)</span>
-                    <span className="meter-bar">[████████░░] 84%</span>
+                    <span className="meter-bar">[████████░░] 85%</span>
                   </div>
                   <div className="meter-row">
-                    <span className="meter-label">Python / Scripting & Data</span>
+                    <span className="meter-label">Python & FastAPI</span>
                     <span className="meter-bar">[████████░░] 82%</span>
                   </div>
                   <div className="meter-row">
-                    <span className="meter-label">Databases (PostgreSQL / MySQL)</span>
-                    <span className="meter-bar">[███████░░░] 78%</span>
+                    <span className="meter-label">C++ & Algorithms</span>
+                    <span className="meter-bar">[████████░░] 80%</span>
+                  </div>
+                  <div className="meter-row">
+                    <span className="meter-label">Databases (PostgreSQL / MySQL / Mongo)</span>
+                    <span className="meter-bar">[████████░░] 84%</span>
                   </div>
                   <div className="meter-row">
                     <span className="meter-label">DevOps & Linux (Docker / Git / CI)</span>
+                    <span className="meter-bar">[█████████░] 88%</span>
+                  </div>
+                  <div className="meter-row">
+                    <span className="meter-label">Design & Media (Figma / Procreate / Illustrator)</span>
                     <span className="meter-bar">[████████░░] 85%</span>
                   </div>
                 </div>

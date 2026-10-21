@@ -529,8 +529,8 @@ input, textarea { font-family: inherit; outline: none; }
 /* ─── Skills ─── */
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.75rem;
   margin-bottom: 3rem;
 }
 .skill-category {
@@ -543,19 +543,37 @@ input, textarea { font-family: inherit; outline: none; }
 .skill-category:hover {
   border-color: rgba(124,58,237,0.4);
   transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(124, 58, 237, 0.1);
 }
 .skill-cat-title {
   font-size: 1rem; font-weight: 700;
   color: var(--accent-2);
   margin-bottom: 1.25rem;
   font-family: 'JetBrains Mono', monospace;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.cat-icon {
+  font-size: 1.1rem;
 }
 .skill-bars { display: flex; flex-direction: column; gap: 0.9rem; }
 .skill-bar-item {
   display: flex; flex-direction: column; gap: 0.4rem;
 }
-.skill-bar-item span {
+.skill-bar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.skill-bar-header span {
   font-size: 0.85rem; color: var(--text-secondary); font-weight: 500;
+}
+.skill-pct {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--accent-2);
+  font-weight: 600;
 }
 .bar {
   height: 6px;
