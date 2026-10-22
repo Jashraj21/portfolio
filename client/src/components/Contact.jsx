@@ -45,14 +45,14 @@ export default function Contact() {
     <section className="contact section" id="contact" ref={sectionRef}>
       <div className="container">
         <div className="section-header reveal">
-          <span className="section-tag">04. Contact</span>
-          <h2 className="section-title">Let's <span className="gradient-text">Connect</span></h2>
+          <span className="section-tag">04. DARKROOM DISPATCH // KODAK LAB</span>
+          <h2 className="section-title">Initiate <span className="gradient-text">Contact</span></h2>
         </div>
         <div className="contact-grid">
           <div className="contact-info reveal">
             <p className="contact-blurb">
               Have a project in mind, an opportunity, or just want to say hi?
-              My inbox is always open — I'll get back to you as soon as possible!
+              My darkroom inbox is always open — I'll get back to you as soon as possible!
             </p>
             <div className="contact-items">
               <div className="contact-item">
@@ -79,6 +79,10 @@ export default function Contact() {
           </div>
 
           <form className="contact-form glass-card reveal" id="contactForm" onSubmit={handleSubmit}>
+            <div className="form-header-badge">
+              <span>KODAK PHOTO LAB • ORDER #35MM</span>
+              <span>EXPRESS DISPATCH</span>
+            </div>
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="contactName">Name</label>
@@ -114,12 +118,12 @@ export default function Contact() {
               />
             </div>
             <button type="submit" className="btn btn-primary" id="submitContact" disabled={sending}>
-              {sending ? 'Sending…' : 'Send Message ✉️'}
+              {sending ? 'Processing…' : 'Dispatch Message ✉️ [EXP 36]'}
             </button>
             {error && <p style={{ color: '#f87171', marginTop: '0.75rem', fontSize: '0.9rem' }}>{error}</p>}
             {success && (
               <div className="form-success show" id="formSuccess">
-                🎉 Message sent! I'll be in touch soon.
+                🎉 Transmission developed &amp; received! I'll be in touch soon.
               </div>
             )}
           </form>

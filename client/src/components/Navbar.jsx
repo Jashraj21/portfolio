@@ -62,13 +62,17 @@ export default function Navbar({ onOpenTerminal }) {
     <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="logo-container">
         <div
-          className={`logo clickable-logo ${clickCount > 0 ? 'pulsing' : ''}`}
+          className={`kodak-nav-badge clickable-logo ${clickCount > 0 ? 'pulsing' : ''}`}
           onClick={handleLogoClick}
-          title="<JN/>"
+          title="Click 3x to open Kodak Darkroom Terminal"
           role="button"
           tabIndex={0}
         >
-          <span className="logo-bracket">&lt;</span>JN<span className="logo-bracket">/&gt;</span>
+          <span className="kodak-k-tab">K</span>
+          <span className="logo">
+            <span className="logo-bracket">&lt;</span>JN<span className="logo-bracket">/&gt;</span>
+          </span>
+          <span className="logo-film-sub">35mm</span>
         </div>
         {clickHint && (
           <span className="logo-click-hint">{clickHint}</span>
@@ -90,6 +94,10 @@ export default function Navbar({ onOpenTerminal }) {
       </nav>
 
       <div className="nav-right-actions">
+        <div className="nav-film-meta">
+          <span className="nav-film-dot" />
+          <span>EXP 36 • ISO 400</span>
+        </div>
         <button
           className="hamburger"
           id="hamburger"

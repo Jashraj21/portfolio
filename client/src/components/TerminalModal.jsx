@@ -59,12 +59,19 @@ const AVAILABLE_COMMANDS = [
 ];
 
 const THEMES = {
+  kodak: {
+    '--bg': '#0e0d0b',
+    '--bg-2': '#161411',
+    '--accent': '#ffc72c',
+    '--accent-2': '#ff9f1c',
+    '--gradient': 'linear-gradient(135deg, #ffc72c, #ff9f1c, #d90429)',
+  },
   default: {
-    '--bg': '#080b14',
-    '--bg-2': '#0d1117',
-    '--accent': '#7c3aed',
-    '--accent-2': '#06b6d4',
-    '--gradient': 'linear-gradient(135deg, #7c3aed, #06b6d4)',
+    '--bg': '#0e0d0b',
+    '--bg-2': '#161411',
+    '--accent': '#ffc72c',
+    '--accent-2': '#ff9f1c',
+    '--gradient': 'linear-gradient(135deg, #ffc72c, #ff9f1c, #d90429)',
   },
   cyberpunk: {
     '--bg': '#050814',
@@ -116,7 +123,7 @@ export default function TerminalModal({ isOpen, onClose, initialMode = 'terminal
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [scanlines, setScanlines] = useState(true);
   const [soundEnabled, setSoundEnabled] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState('default');
+  const [currentTheme, setCurrentTheme] = useState('kodak');
   const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
 
   // Sync mode when modal opens without cascading effect
@@ -395,7 +402,7 @@ export default function TerminalModal({ isOpen, onClose, initialMode = 'terminal
           responseOutputs = [
             {
               type: 'info',
-              content: `Current theme: '${currentTheme}'. Available: default, cyberpunk, matrix, synthwave, dracula.`,
+              content: `Current theme: '${currentTheme}'. Available: kodak, default, cyberpunk, matrix, synthwave, dracula.`,
             },
             {
               type: 'custom',
@@ -425,7 +432,7 @@ export default function TerminalModal({ isOpen, onClose, initialMode = 'terminal
             responseOutputs = [
               {
                 type: 'error',
-                content: `Theme '${chosen}' not found. Choose from: default, cyberpunk, matrix, synthwave, dracula.`,
+                content: `Theme '${chosen}' not found. Choose from: kodak, default, cyberpunk, matrix, synthwave, dracula.`,
               },
             ];
           }

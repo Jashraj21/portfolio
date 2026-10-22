@@ -44,14 +44,33 @@ export default function Hero() {
     return () => clearTimeout(timeout);
   }, [charIndex, deleting, roleIndex]);
 
+  const now = new Date();
+  const yy = String(now.getFullYear()).slice(-2);
+  const mm = String(now.getMonth() + 1).padStart(2, '0');
+  const dd = String(now.getDate()).padStart(2, '0');
+  const dateStamp = `'${yy} ${mm} ${dd}`;
+
   return (
     <section className="hero" id="home">
+      <div className="viewfinder-corner tl" />
+      <div className="viewfinder-corner tr" />
+      <div className="viewfinder-corner bl" />
+      <div className="viewfinder-corner br" />
+
       <div className="hero-bg">
         <div className="orb orb-1" />
         <div className="orb orb-2" />
         <div className="orb orb-3" />
       </div>
       <div className="hero-content">
+        <div className="hero-hud">
+          <span className="hud-rec"><span className="rec-dot" />REC</span>
+          <span className="hud-film">35mm KODAK 400TX</span>
+          <span className="hud-metric">f/1.8</span>
+          <span className="hud-metric">1/250s</span>
+          <span className="hud-metric">ISO 400</span>
+        </div>
+
         <p className="hero-greeting">👋 Hey there, I'm</p>
         <h1 className="hero-name">
           Jashraaj <span className="gradient-text">Nath</span>
@@ -62,16 +81,16 @@ export default function Hero() {
         </div>
         <p className="hero-bio">
           Passionate about crafting clean, performant, and beautifully designed
-          digital experiences that make a real difference.
+          digital experiences that make a real difference. Captured in warm 35mm tone.
         </p>
         <div className="hero-cta">
           <a href="#projects" className="btn btn-primary" id="hero-view-projects"
             onClick={(e) => { e.preventDefault(); document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }); }}>
-            View My Work
+            View Contact Sheet
           </a>
           <a href="#contact" className="btn btn-ghost" id="hero-contact"
             onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}>
-            Let's Talk
+            Darkroom Dispatch
           </a>
         </div>
         <div className="hero-social">
@@ -93,6 +112,10 @@ export default function Hero() {
           <a href={`mailto:${socials.email || 'mail.jashraajnath@gmail.com'}`} className="social-link" id="social-email" aria-label="Email">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
           </a>
+        </div>
+
+        <div>
+          <span className="quartz-date-stamp" title="Analog Quartz Date Imprint">DATE // {dateStamp}</span>
         </div>
       </div>
       <div className="scroll-hint">

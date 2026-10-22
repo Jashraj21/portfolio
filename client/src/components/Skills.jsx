@@ -94,8 +94,8 @@ export default function Skills() {
     <section className="skills section" id="skills" ref={sectionRef}>
       <div className="container">
         <div className="section-header reveal">
-          <span className="section-tag">02. Skills</span>
-          <h2 className="section-title">My <span className="gradient-text">Toolkit</span></h2>
+          <span className="section-tag">02. EXPOSURE & TOOLKIT // KODAK LAB</span>
+          <h2 className="section-title">Technical <span className="gradient-text">Exposure</span></h2>
         </div>
         <div className="skills-grid">
           {categories.map((cat) => (

@@ -42,7 +42,7 @@
 .admin-nav-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
 .admin-nav-btn:hover { background: var(--surface); color: var(--text-primary); }
 .admin-nav-btn.active {
-  background: rgba(124,58,237,0.15);
+  background: rgba(255,199,44,0.15);
   color: var(--accent);
 }
 .badge {
@@ -105,7 +105,7 @@
   position: relative;
 }
 .message-card:hover { background: var(--surface-hover); }
-.message-card.selected { background: rgba(124,58,237,0.08); border-left: 3px solid var(--accent); }
+.message-card.selected { background: rgba(255,199,44,0.08); border-left: 3px solid var(--accent); }
 .message-card.unread .message-sender { color: var(--text-primary); font-weight: 700; }
 .message-card-top {
   display: flex; justify-content: space-between;
@@ -182,7 +182,7 @@
   display: flex; flex-direction: column; gap: 0.75rem;
   transition: var(--transition);
 }
-.project-admin-card:hover { border-color: rgba(124,58,237,0.4); }
+.project-admin-card:hover { border-color: rgba(255,199,44,0.4); }
 .project-admin-top { display: flex; align-items: center; gap: 0.75rem; }
 .project-emoji { font-size: 2rem; }
 .featured-badge {
@@ -323,10 +323,10 @@
   transition: var(--transition);
   border: 1px solid var(--border);
 }
-.gh-repo-card:hover { border-color: rgba(124,58,237,0.35); }
+.gh-repo-card:hover { border-color: rgba(255,199,44,0.35); }
 .gh-repo-card.gh-selected {
   border-color: var(--accent);
-  background: rgba(124,58,237,0.06);
+  background: rgba(255,199,44,0.06);
 }
 .gh-repo-header {
   display: flex;
@@ -354,7 +354,7 @@
   font-weight: 600;
   padding: 2px 8px;
   border-radius: 50px;
-  background: rgba(124,58,237,0.12);
+  background: rgba(255,199,44,0.12);
   color: var(--accent);
   margin-top: 0.2rem;
 }
@@ -420,7 +420,7 @@
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  box-shadow: 0 8px 32px rgba(124,58,237,0.25);
+  box-shadow: 0 8px 32px rgba(255,199,44,0.25);
   z-index: 100;
   font-size: 0.9rem;
   color: var(--text-secondary);

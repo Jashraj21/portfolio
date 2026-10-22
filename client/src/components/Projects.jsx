@@ -51,8 +51,8 @@ export default function Projects() {
     <section className="projects section" id="projects" ref={sectionRef}>
       <div className="container">
         <div className="section-header reveal">
-          <span className="section-tag">03. Projects</span>
-          <h2 className="section-title">What I've <span className="gradient-text">Built</span></h2>
+          <span className="section-tag">03. CONTACT SHEET // 35mm ARCHIVE</span>
+          <h2 className="section-title">Captured <span className="gradient-text">Creations</span></h2>
         </div>
 
         {loading && <p className="loading-projects">Loading projects…</p>}
@@ -62,6 +62,15 @@ export default function Projects() {
           <div className="projects-grid">
             {featured && (
               <article className="project-card featured reveal" id="project-featured">
+                <div className="film-sprocket-header" style={{ gridColumn: 'span 2' }}>
+                  <div className="sprocket-dots">
+                    <span className="sprocket-hole" /><span className="sprocket-hole" /><span className="sprocket-hole" />
+                  </div>
+                  <span>▲ 12A • KODAK PORTRA 400 • FEATURED NEGATIVE</span>
+                  <div className="sprocket-dots">
+                    <span className="sprocket-hole" /><span className="sprocket-hole" /><span className="sprocket-hole" />
+                  </div>
+                </div>
                 <div className="project-img">
                   {featured.image_url ? (
                     <img src={featured.image_url} alt={featured.title} className="project-photo" />
@@ -72,7 +81,13 @@ export default function Projects() {
                   )}
                 </div>
                 <div className="project-info">
-                  <span className="project-tag">Featured Project</span>
+                  <div className="kodak-color-bar">
+                    <span className="swatch-c" />
+                    <span className="swatch-m" />
+                    <span className="swatch-y" />
+                    <span className="swatch-k" />
+                  </div>
+                  <span className="project-tag">Featured 35mm Frame</span>
                   <h3 className="project-title">{featured.title}</h3>
                   <div className="project-desc glass-card">
                     <p>{featured.description}</p>
@@ -91,6 +106,15 @@ export default function Projects() {
             )}
             {rest.map((p, i) => (
               <article className="project-card reveal" key={p.id} id={`project-${p.id}`}>
+                <div className="film-sprocket-header">
+                  <div className="sprocket-dots">
+                    <span className="sprocket-hole" /><span className="sprocket-hole" /><span className="sprocket-hole" />
+                  </div>
+                  <span>KODAK GOLD 200 • EXP {String(i + 1).padStart(2, '0')}</span>
+                  <div className="sprocket-dots">
+                    <span className="sprocket-hole" /><span className="sprocket-hole" /><span className="sprocket-hole" />
+                  </div>
+                </div>
                 <div className="project-img">
                   {p.image_url ? (
                     <img src={p.image_url} alt={p.title} className="project-photo" />
@@ -101,7 +125,13 @@ export default function Projects() {
                   )}
                 </div>
                 <div className="project-info">
-                  <span className="project-tag">{p.tag || 'Project'}</span>
+                  <div className="kodak-color-bar">
+                    <span className="swatch-c" />
+                    <span className="swatch-m" />
+                    <span className="swatch-y" />
+                    <span className="swatch-k" />
+                  </div>
+                  <span className="project-tag">{p.tag || 'Project Frame'}</span>
                   <h3 className="project-title">{p.title}</h3>
                   <p className="project-desc-sm">{p.description}</p>
                   <div className="project-stack">

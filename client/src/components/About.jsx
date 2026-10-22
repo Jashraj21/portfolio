@@ -41,16 +41,24 @@ export default function About() {
     <section className="about section" id="about" ref={sectionRef}>
       <div className="container">
         <div className="section-header reveal">
-          <span className="section-tag">01. About Me</span>
+          <span className="section-tag">01. BIOGRAPHY // KODAK PORTRA 400</span>
           <h2 className="section-title">Who I <span className="gradient-text">Am</span></h2>
         </div>
         <div className="about-grid">
           <div className="about-avatar-wrap reveal">
-            <div className="about-avatar">
-              <img src="/profile.jpg" alt="Jashraaj Nath" className="avatar-photo" />
+            <div className="slide-mount-frame">
+              <div className="slide-mount-top">
+                <span>▲ 21A ▲</span>
+                <span>KODAK SAFETY FILM 5063</span>
+              </div>
+              <div className="about-avatar">
+                <img src="/profile.jpg" alt="Jashraaj Nath" className="avatar-photo" />
+              </div>
+              <div className="slide-mount-bottom">
+                <span>PORTRA 400</span>
+                <span>35mm SLIDE</span>
+              </div>
             </div>
-            <div className="avatar-ring ring-1" />
-            <div className="avatar-ring ring-2" />
             <div className="about-badge">
               <span className="badge-dot" /> Available for work
             </div>
@@ -59,16 +67,17 @@ export default function About() {
             <p className="reveal">
               I'm <strong>Jashraaj Nath</strong>, a developer and creative thinker who loves
               turning complex problems into simple, beautiful, and intuitive solutions.
-              I care deeply about the intersection of design and technology.
+              I care deeply about the intersection of design, technology, and authentic craft.
             </p>
             <p className="reveal">
-              When I'm not coding, you'll find me exploring new design trends,
+              When I'm not coding, you'll find me exploring analog visual aesthetics,
               contributing to open-source, or levelling up my problem-solving skills
               on competitive platforms.
             </p>
             <div className="about-stats reveal">
-              {stats.map((s) => (
+              {stats.map((s, i) => (
                 <div className="stat-card" key={s.label}>
+                  <span className="stat-frame-tag">{`FRAME 0${i + 1}`}</span>
                   <span className="stat-number" data-target={s.target}>0</span>
                   <span className="stat-label">{s.label}</span>
                 </div>
