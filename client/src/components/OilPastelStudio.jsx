@@ -168,7 +168,7 @@ export default function OilPastelStudio({ onClose }) {
       rawImageRef.current = img;
       processOilPastel(img, strokeRadius, textureAmount, saturation, activePreset);
     };
-    img.src = '/profile.jpg';
+    img.src = '/secret-art.jpg';
     soundFx.playKey();
   };
 
@@ -369,15 +369,32 @@ export default function OilPastelStudio({ onClose }) {
     }
   };
 
-  // Download high-resolution artwork
-  const downloadArtwork = () => {
-    const pastel = pastelCanvasRef.current;
-    if (!pastel) return;
-    soundFx.playKey();
-    const link = document.createElement('a');
-    link.download = `oil-pastel-art-${Date.now()}.png`;
-    link.href = pastel.toDataURL('image/png');
-    link.click();
+  const [downloadHref, setDownloadHref] = useState('/secret-art.jpg');
+
+  // Preload designated image into a Blob URL on mount so download is immediate and synchronous
+  useEffect(() => {
+    let isMounted = true;
+    let objectUrl = null;
+
+    fetch('/secret-art.jpg')
+      .then((res) => res.blob())
+      .then((blob) => {
+        if (!isMounted) return;
+        objectUrl = URL.createObjectURL(blob);
+        setDownloadHref(objectUrl);
+      })
+      .catch((err) => {
+        console.warn('Could not preload blob, using direct URL fallback:', err);
+      });
+
+    return () => {
+      isMounted = false;
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    };
+  }, []);
+
+  const handleDownloadClick = () => {
+    soundFx.playSuccess();
   };
 
   return (
@@ -390,13 +407,15 @@ export default function OilPastelStudio({ onClose }) {
         </div>
         <div className="pastel-header-actions">
           {mode === 'result' && (
-            <button
+            <a
+              href={downloadHref}
+              download="oil-pastel-portrait.jpg"
               className="pastel-action-btn primary"
-              onClick={downloadArtwork}
-              title="Download PNG artwork"
+              onClick={handleDownloadClick}
+              title="Download Artwork"
             >
               💾 Save Artwork
-            </button>
+            </a>
           )}
           <button
             className="pastel-action-btn"
@@ -448,8 +467,8 @@ export default function OilPastelStudio({ onClose }) {
               {/* Option 3: Sample Portrait */}
               <div className="select-card sample" onClick={loadSamplePhoto}>
                 <div className="card-icon-wrap">✨</div>
-                <h5>Try with Jashraaj's Photo</h5>
-                <p>Instant demonstration with the portfolio creator's portrait</p>
+                <h5>Try with Sample Photo</h5>
+                <p>Instant 1-click oil pastel demonstration</p>
                 <button className="card-btn highlight">Demo 1-Click</button>
               </div>
             </div>
@@ -619,12 +638,14 @@ export default function OilPastelStudio({ onClose }) {
                   </div>
 
                   <div className="sidebar-actions">
-                    <button
+                    <a
+                      href={downloadHref}
+                      download="oil-pastel-portrait.jpg"
                       className="sidebar-btn download"
-                      onClick={downloadArtwork}
+                      onClick={handleDownloadClick}
                     >
-                      💾 Download Artwork (PNG)
-                    </button>
+                      💾 Download Artwork (JPG)
+                    </a>
                     <button
                       className="sidebar-btn retake"
                       onClick={() => setMode('select')}

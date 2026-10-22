@@ -65,6 +65,11 @@
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 .pastel-action-btn:hover {
   background: rgba(255, 255, 255, 0.12);
@@ -545,6 +550,11 @@
   transition: all 0.2s;
   font-family: inherit;
   text-align: center;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 .sidebar-btn.download {
   background: linear-gradient(135deg, #7c3aed, #06b6d4);

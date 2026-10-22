@@ -38,22 +38,23 @@ export default function Navbar({ onOpenTerminal }) {
     setMenuOpen(false);
   };
 
-  const handleLogoClick = () => {
+  const handleLogoClick = (e) => {
+    e?.preventDefault?.();
     const next = clickCount + 1;
     setClickCount(next);
     clearTimeout(clickTimer.current);
 
     if (next >= 3) {
-      setClickHint('CONSOLE UNLOCKED!');
+      setClickHint('ACCESS GRANTED ⚡');
       setClickCount(0);
       onOpenTerminal?.('terminal');
-      setTimeout(() => setClickHint(''), 3000);
+      setTimeout(() => setClickHint(''), 2500);
     } else {
-      setClickHint(`${3 - next} more click${3 - next > 1 ? 's' : ''} to unlock!`);
+      setClickHint(`${3 - next} more tap${3 - next > 1 ? 's' : ''}...`);
       clickTimer.current = setTimeout(() => {
         setClickCount(0);
         setClickHint('');
-      }, 3000);
+      }, 2500);
     }
   };
 
@@ -63,7 +64,7 @@ export default function Navbar({ onOpenTerminal }) {
         <div
           className={`logo clickable-logo ${clickCount > 0 ? 'pulsing' : ''}`}
           onClick={handleLogoClick}
-          title="Click 3 times to reveal hidden console"
+          title="<JN/>"
           role="button"
           tabIndex={0}
         >
@@ -89,15 +90,6 @@ export default function Navbar({ onOpenTerminal }) {
       </nav>
 
       <div className="nav-right-actions">
-        <button
-          className="nav-terminal-btn"
-          onClick={() => onOpenTerminal?.('terminal')}
-          title="Open Hidden Terminal (Ctrl+K or ~)"
-          aria-label="Open Terminal"
-        >
-          <span className="terminal-symbol">&gt;_</span>
-          <span className="nav-terminal-text">Terminal</span>
-        </button>
         <button
           className="hamburger"
           id="hamburger"
