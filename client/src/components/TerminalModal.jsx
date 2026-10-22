@@ -270,6 +270,10 @@ export default function TerminalModal({ isOpen, onClose, initialMode = 'terminal
                     <span className="meter-bar">[█████████░] 90%</span>
                   </div>
                   <div className="meter-row">
+                    <span className="meter-label">Mobile App (React Native / Flutter / Expo / Android)</span>
+                    <span className="meter-bar">[█████████░] 86%</span>
+                  </div>
+                  <div className="meter-row">
                     <span className="meter-label">Backend (Node.js / Express / APIs)</span>
                     <span className="meter-bar">[████████░░] 85%</span>
                   </div>
@@ -569,7 +573,7 @@ export default function TerminalModal({ isOpen, onClose, initialMode = 'terminal
           responseOutputs = [
             {
               type: 'info',
-              content: JSON.stringify({ frontend: ['React', 'Next', 'Vite', 'CSS3'], backend: ['Node', 'Express', 'Python'], database: ['MySQL', 'PostgreSQL'] }, null, 2),
+              content: JSON.stringify({ frontend: ['React', 'Next', 'Vite', 'CSS3'], mobile: ['React Native', 'Flutter', 'Expo', 'Android SDK'], backend: ['Node', 'Express', 'Python', 'FastAPI'], database: ['MySQL', 'PostgreSQL', 'MongoDB'] }, null, 2),
             },
           ];
         } else if (file === 'projects.md') {

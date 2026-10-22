@@ -13,6 +13,17 @@ const categories = [
     ],
   },
   {
+    title: 'Mobile App Development',
+    icon: '📱',
+    skills: [
+      { name: 'React Native & Expo', level: 86 },
+      { name: 'Flutter & Dart', level: 80 },
+      { name: 'Android SDK (Kotlin / Java)', level: 78 },
+      { name: 'iOS App Architecture (Swift)', level: 75 },
+      { name: 'Cross-Platform UI & PWAs', level: 88 },
+    ],
+  },
+  {
     title: 'Backend & Systems',
     icon: '⚙️',
     skills: [
@@ -48,11 +59,12 @@ const categories = [
 ];
 
 const pills = [
-  'React', 'Next.js', 'JavaScript', 'TypeScript', 'Node.js', 'Express',
+  'React', 'React Native', 'Flutter', 'Dart', 'Expo', 'Android SDK', 'Swift',
+  'Next.js', 'JavaScript', 'TypeScript', 'Node.js', 'Express',
   'Python', 'C++', 'FastAPI', 'PostgreSQL', 'MySQL', 'MongoDB',
   'Tailwind CSS', 'HTML5 & CSS3', 'Git', 'GitHub', 'Docker', 'Linux / CLI',
   'Figma', 'Adobe Illustrator', 'Procreate', 'SciLab', 'TinaCMS',
-  'Vercel', 'REST APIs', 'WebSockets', 'Canva', 'Computer Vision'
+  'Vercel', 'REST APIs', 'WebSockets', 'PWAs', 'Canva', 'Computer Vision'
 ];
 
 export default function Skills() {
